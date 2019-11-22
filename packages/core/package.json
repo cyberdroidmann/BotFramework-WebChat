@@ -1,0 +1,55 @@
+{
+  "name": "botframework-webchat-core",
+  "version": "0.0.0-0",
+  "description": "Core of botframework-webchat",
+  "main": "lib/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Microsoft Corporation",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/microsoft/BotFramework-WebChat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/microsoft/BotFramework-WebChat/issues"
+  },
+  "homepage": "https://github.com/microsoft/BotFramework-WebChat/packages/core#readme",
+  "scripts": {
+    "build": "npm run build:typecheck && npm run build:babel-instrumented",
+    "build:babel": "babel --extensions .js,.ts,.tsx --ignore **/*.spec.js,**/*.spec.ts,**/*.spec.tsx,**/*.test.js,**/*.test.ts,**/*.test.tsx,__tests__/**/*.js,__tests__/**/*.ts,__tests__/**/*.tsx --out-dir lib --source-maps inline --verbose src",
+    "build:babel-instrumented": "npm run build:babel -- --env-name test",
+    "build:typecheck": "tsc",
+    "clean": "rimraf lib",
+    "eslint": "eslint src/**/*.js src/**/*.ts --ignore-pattern *.spec.[jt]sx? --ignore-pattern *.test.[jt]sx?",
+    "prepublishOnly": "npm run build:typecheck && npm run build:babel",
+    "watch": "concurrently --names \"babel,typecheck\" \"npm run build:babel-instrumented -- --watch\" \"npm run build:typecheck -- --preserveWatchOutput --watch\""
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-typescript": "^7.6.0",
+    "@types/node": "^12.12.3",
+    "babel-plugin-istanbul": "^5.2.0",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.3",
+    "botframework-directlinejs": "^0.11.6",
+    "concurrently": "^5.0.0",
+    "eslint": "^6.6.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.18.2",
+    "rimraf": "^3.0.0",
+    "typescript": "^3.6.4"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.6.3",
+    "jsonwebtoken": "^8.5.1",
+    "math-random": "^1.0.4",
+    "mime": "2.4.3",
+    "redux": "^4.0.4",
+    "redux-saga": "^1.1.1",
+    "simple-update-in": "^2.1.1"
+  }
+}

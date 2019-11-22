@@ -1,0 +1,85 @@
+{
+  "name": "botframework-webchat",
+  "version": "0.0.0-0",
+  "description": "A highly-customizable web-based chat client for Azure Bot Services.",
+  "main": "lib/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Microsoft Corporation",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/microsoft/BotFramework-WebChat.git"
+  },
+  "bugs": {
+    "url": "https://github.com/microsoft/BotFramework-WebChat/issues"
+  },
+  "homepage": "https://github.com/microsoft/BotFramework-WebChat/#readme",
+  "scripts": {
+    "build": "npm run build:typecheck && npm run build:babel-instrumented && webpack-cli --config webpack-instrumented.config.js --run-dev",
+    "build:babel": "babel --extensions .js,.ts,.tsx --ignore **/*.spec.js,**/*.spec.ts,**/*.spec.tsx,**/*.test.js,**/*.test.ts,**/*.test.tsx,__tests__/**/*.js,__tests__/**/*.ts,__tests__/**/*.tsx --out-dir lib --source-maps inline --verbose src",
+    "build:babel-instrumented": "npm run build:babel -- --env-name test",
+    "build:typecheck": "tsc",
+    "clean": "npm run clean:dist && npm run clean:lib",
+    "clean:dist": "rimraf dist",
+    "clean:lib": "rimraf lib",
+    "eslint": "eslint src/**/*.js src/**/*.ts --ignore-pattern *.spec.[jt]sx? --ignore-pattern *.test.[jt]sx? --ignore-pattern __tests__",
+    "prepublishOnly": "npm run build:typecheck && npm run build:babel && webpack-cli",
+    "watch": "concurrently --names \"babel,typecheck,webpack\" \"npm run watch:babel\" \"npm run watch:typecheck\" \"npm run watch:webpack\"",
+    "watch:babel": "npm run build:babel-instrumented -- --watch",
+    "watch:typecheck": "npm run build:typecheck -- --preserveWatchOutput --watch",
+    "watch:webpack": "webpack-cli --config webpack-watch.config.js --mode development --watch"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.6.3",
+    "adaptivecards": "1.2.3",
+    "botframework-directlinejs": "^0.11.6",
+    "botframework-webchat-component": "0.0.0-0",
+    "botframework-webchat-core": "0.0.0-0",
+    "core-js": "^3.3.6",
+    "markdown-it": "^10.0.0",
+    "markdown-it-for-inline": "^0.1.1",
+    "memoize-one": "^5.1.1",
+    "microsoft-cognitiveservices-speech-sdk": "1.6.0",
+    "microsoft-speech-browser-sdk": "^0.0.12",
+    "prop-types": "^15.7.2",
+    "sanitize-html": "^1.19.0",
+    "url-search-params-polyfill": "^7.0.0",
+    "web-speech-cognitive-services": "5.0.1",
+    "whatwg-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.6.4",
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "@babel/preset-typescript": "^7.6.0",
+    "@types/node": "^12.12.3",
+    "@types/react": "^16.9.11",
+    "@typescript-eslint/eslint-plugin": "^2.6.0",
+    "@typescript-eslint/parser": "^2.6.0",
+    "babel-plugin-istanbul": "^5.2.0",
+    "babel-plugin-transform-inline-environment-variables": "^0.4.3",
+    "concurrently": "^5.0.0",
+    "eslint": "^6.6.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^2.2.0",
+    "isomorphic-react": "^0.0.0-0",
+    "isomorphic-react-dom": "^0.0.0-0",
+    "prettier": "^1.18.2",
+    "terser-webpack-plugin": "^2.2.1",
+    "typescript": "^3.6.4",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-stats-plugin": "^0.3.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  }
+}
